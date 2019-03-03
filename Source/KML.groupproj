@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D7C36BA1-F83A-4599-BA4A-CFF61E962E9E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TestKML.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TestKML">
+        <MSBuild Projects="TestKML.dproj"/>
+    </Target>
+    <Target Name="TestKML:Clean">
+        <MSBuild Projects="TestKML.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestKML:Make">
+        <MSBuild Projects="TestKML.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TestKML"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TestKML:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TestKML:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
