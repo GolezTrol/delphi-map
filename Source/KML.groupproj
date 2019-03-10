@@ -6,6 +6,9 @@
         <Projects Include="TestKML.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\Tests\DMap.UnitTests.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -23,14 +26,23 @@
     <Target Name="TestKML:Make">
         <MSBuild Projects="TestKML.dproj" Targets="Make"/>
     </Target>
+    <Target Name="DMap_UnitTests">
+        <MSBuild Projects="..\Tests\DMap.UnitTests.dproj"/>
+    </Target>
+    <Target Name="DMap_UnitTests:Clean">
+        <MSBuild Projects="..\Tests\DMap.UnitTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DMap_UnitTests:Make">
+        <MSBuild Projects="..\Tests\DMap.UnitTests.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="TestKML"/>
+        <CallTarget Targets="TestKML;DMap_UnitTests"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="TestKML:Clean"/>
+        <CallTarget Targets="TestKML:Clean;DMap_UnitTests:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="TestKML:Make"/>
+        <CallTarget Targets="TestKML:Make;DMap_UnitTests:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
