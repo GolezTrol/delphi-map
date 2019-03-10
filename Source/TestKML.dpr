@@ -10,7 +10,8 @@ uses
   Map.IO.KML in 'Map.IO.KML.pas',
   Map.IO.Intf in 'Map.IO.Intf.pas',
   Map.Projection.Intf in 'Map.Projection.Intf.pas',
-  Map.Projection.Ugly in 'Map.Projection.Ugly.pas';
+  Map.Projection.Ugly in 'Map.Projection.Ugly.pas',
+  Map.Projection.Orthographic in 'Map.Projection.Orthographic.pas';
 
 {$R *.res}
 

@@ -3,7 +3,7 @@ unit Map;
 interface
 
 type
-  TLatLon = packed record
+  TLatLon = record
     Lat, Lon: Double;
   end;
   TPolygon = array of TLatLon;

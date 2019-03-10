@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   Map, Map.IO.Intf, Map.IO.Binary, Map.IO.KML, Map.Plotter.Intf, Map.Plotter,
-  Map.Projection.Ugly;
+  Map.Projection.Ugly, Map.Projection.Orthographic;
 
 type
   TKMLTestForm = class(TForm)
@@ -86,12 +86,17 @@ end;
 procedure TKMLTestForm.FormPaint(Sender: TObject);
 var
   b: TBitmap;
+  center: TLatLon;
 begin
   b := TBitmap.Create;
   try
     b.Width := 1000;
     b.Height := 1000;
-    with (TMapPlotter.Create(TMapProjectionUgly.Create) as IMapPlotter) do
+
+    // Todo: Calculate based on coordinates/bounding rect
+    center.Lat := 52;
+    center.Lon := 5;
+    with (TMapPlotter.Create(TMapProjectionOrthographic.Create(center)) as IMapPlotter) do
     begin
       if ShowBinaryMap.Checked then
       begin
