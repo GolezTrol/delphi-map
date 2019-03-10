@@ -8,7 +8,9 @@ uses
   Map.Plotter in 'Map.Plotter.pas',
   Map.IO.Binary in 'Map.IO.Binary.pas',
   Map.IO.KML in 'Map.IO.KML.pas',
-  Map.IO.Intf in 'Map.IO.Intf.pas';
+  Map.IO.Intf in 'Map.IO.Intf.pas',
+  Map.Projection.Intf in 'Map.Projection.Intf.pas',
+  Map.Projection.Ugly in 'Map.Projection.Ugly.pas';
 
 {$R *.res}
 

@@ -105,6 +105,8 @@
         <DCCReference Include="Map.IO.Binary.pas"/>
         <DCCReference Include="Map.IO.KML.pas"/>
         <DCCReference Include="Map.IO.Intf.pas"/>
+        <DCCReference Include="Map.Projection.Intf.pas"/>
+        <DCCReference Include="Map.Projection.Ugly.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  Map, Map.IO.Intf, Map.IO.Binary, Map.IO.KML, Map.Plotter.Intf, Map.Plotter;
+  Map, Map.IO.Intf, Map.IO.Binary, Map.IO.KML, Map.Plotter.Intf, Map.Plotter,
+  Map.Projection.Ugly;
 
 type
   TKMLTestForm = class(TForm)
@@ -90,7 +91,7 @@ begin
   try
     b.Width := 1000;
     b.Height := 1000;
-    with (TMapPlotter.Create as IMapPlotter) do
+    with (TMapPlotter.Create(TMapProjectionUgly.Create) as IMapPlotter) do
     begin
       if ShowBinaryMap.Checked then
       begin
