@@ -52,28 +52,30 @@ begin
 
   // After binary files are written, comment out from here for faster loading: {
 
-  // Load the KML file
-  fs := TFileStream.Create(FileName, fmOpenRead);
   try
-    FMap1 := (TKMLMapStreamReader.Create as IMapStreamReader).ReadMap(fs);
-  finally
-    fs.Free;
-  end;
+    // Load the binary file for comparison
+    bfs := TFileStream.Create(BinFileName, fmOpenRead);
+    try
+      FMap2 := (TBinMapStreamReader.Create as IMapStreamReader).ReadMap(bfs);
+    finally
+      bfs.Free;
+    end;
+  except
+    // Load the KML file
+    fs := TFileStream.Create(FileName, fmOpenRead);
+    try
+      FMap1 := (TKMLMapStreamReader.Create as IMapStreamReader).ReadMap(fs);
+    finally
+      fs.Free;
+    end;
 
-  // Save to binary file
-  bfs := TFileStream.Create(BinFileName, fmCreate);
-  try
-    (TBinMapStreamWriter.Create as IMapStreamWriter).WriteMap(FMap1, bfs);
-  finally
-    bfs.Free;
-  end; // For speed, comment out until here when the binary file is saved. }
-
-  // Load the binary file for comparison
-  bfs := TFileStream.Create(BinFileName, fmOpenRead);
-  try
-    FMap2 := (TBinMapStreamReader.Create as IMapStreamReader).ReadMap(bfs);
-  finally
-    bfs.Free;
+    // Save to binary file
+    bfs := TFileStream.Create(BinFileName, fmCreate);
+    try
+      (TBinMapStreamWriter.Create as IMapStreamWriter).WriteMap(FMap1, bfs);
+    finally
+      bfs.Free;
+    end; // For speed, comment out until here when the binary file is saved. }
   end;
 end;
 

@@ -33,13 +33,17 @@ end;
 function TMapProjectionOrthographic.LatLonToPoint(latlon: TLatLon): TPoint;
 var
   x, y: Double;
-  la, lo: Double;
+  la, lo,
+  laSin, laCos, loSin, loCos, claSin, claCos: Double;
 begin
   // Formula: https://en.wikipedia.org/wiki/Orthographic_projection_in_cartography#Mathematics
   la := DegToRad(latlon.Lat);
   lo := DegToRad(latlon.Lon);
-  x := FRadius * Cos(la) * Sin(lo - FCenterRad.Lon);
-  y := FRadius * (Cos(FCenterRad.Lat) * Sin(la) - Sin(FCenterRad.Lat) * Cos(la) * Cos(lo - FCenterRad.Lon));
+  SinCos(la, laSin, laCos);
+  SinCos(lo - FCenterRad.Lon, loSin, loCos);
+  SinCos(FCenterRad.Lat, claSin, claCos);
+  x := FRadius * laCos * loSin;
+  y := FRadius * (claCos * laSin - claSin * laCos * loCos);
   // Todo: Center based on viewport sizes
   Result := TPoint.Create(Round(x+500), Round(-y+500));
 end;
