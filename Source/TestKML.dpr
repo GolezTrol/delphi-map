@@ -11,7 +11,9 @@ uses
   Map.IO.Intf in 'Map.IO.Intf.pas',
   Map.Projection.Intf in 'Map.Projection.Intf.pas',
   Map.Projection.Ugly in 'Map.Projection.Ugly.pas',
-  Map.Projection.Orthographic in 'Map.Projection.Orthographic.pas';
+  Map.Projection.Orthographic in 'Map.Projection.Orthographic.pas',
+  Map.Factory.Area.Intf in 'Map.Factory.Area.Intf.pas',
+  Map.Factory.Area in 'Map.Factory.Area.pas';
 
 {$R *.res}
 

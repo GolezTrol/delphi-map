@@ -64,5 +64,9 @@ __recovery/
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
 *.stat
 
+# Keyhole files and binary serialized maps
+*.bin
+*.kml
+
 # Auto- or manually appended stuff
 *.cbk

@@ -7,16 +7,20 @@ type
     Lat, Lon: Double;
   end;
   TPolygon = array of TLatLon;
+
   TShapeArray = array of TPolygon;
-  TArea = record
-    Code: String;
-    Shapes: TShapeArray;
+
+  IArea = interface
+    function GetCode: String;
+    function GetShapes: TShapeArray;
   end;
-  TAreas = array of TArea;
+
+  TAreas = array of IArea;
   TMap = class
     Areas: TAreas;
   end;
 
 implementation
+
 
 end.

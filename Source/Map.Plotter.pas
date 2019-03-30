@@ -28,7 +28,7 @@ end;
 
 procedure TMapPlotter.Plot(map: TMap; canvas: TCanvas);
 var
-  area: TArea;
+  area: IArea;
   polygon: TPolygon;
   points: array of TPoint;
   x, y: Integer;
@@ -38,13 +38,13 @@ begin
   Canvas.Font.Size := 6;
   for area in map.Areas do
   begin
-    x := FProjection.LatLonToPoint(area.Shapes[0][0]).X;
-    y := FProjection.LatLonToPoint(area.Shapes[0][0]).Y;
+    x := FProjection.LatLonToPoint(area.GetShapes[0][0]).X;
+    y := FProjection.LatLonToPoint(area.GetShapes[0][0]).Y;
     Canvas.TextOut(x, y, area.Code);
   end;
   for area in map.Areas do
   begin
-    for polygon in area.Shapes do
+    for polygon in area.GetShapes do
     begin
       SetLength(points, Length(polygon));
       for i := Low(polygon) to High(polygon) do

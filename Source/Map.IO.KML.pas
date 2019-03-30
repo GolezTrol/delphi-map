@@ -6,24 +6,34 @@ uses
   Classes, SysUtils,
   XMLDoc, Xml.XMLIntf, XMLDom, Xml.omnixmldom,
   Map,
-  Map.IO.Intf;
+  Map.IO.Intf,
+  Map.Factory.Area.Intf;
 
 type
   TKMLMapStreamReader = class(TInterfacedObject, IMapStreamReader)
-  private
-    function LoadArea(node: IDOMNode): TArea;
+  protected
+    FAreaFactory: IAreaFactory;
+    function LoadArea(node: IDOMNode): IArea;
     function ParsePolygon(coordinates: string): TPolygon;
-  private //IMapStreamReader
+  protected //IMapStreamReader
     function ReadMap(Stream: TStream): TMap;
+  public
+    constructor Create(AreaFactory: IAreaFactory);
   end;
 
 implementation
 
-function TKMLMapStreamReader.LoadArea(node: IDOMNode): TArea;
+constructor TKMLMapStreamReader.Create(AreaFactory: IAreaFactory);
+begin
+  FAreaFactory := AreaFactory;
+end;
+
+function TKMLMapStreamReader.LoadArea(node: IDOMNode): IArea;
 var
   select: IDOMNodeSelect;
   postalcode: String;
   polygonNodes: IDOMNodeList;
+  shapes: TShapeArray;
   i: Integer;
   pn: IDOMNode;
 begin
@@ -32,16 +42,16 @@ begin
   postalcode := (select.selectNode('ExtendedData/SchemaData/SimpleData[@name="PC4"]') as IDOMNodeEx).text;
   polygonNodes := select.selectNodes('MultiGeometry/Polygon');
 
-  Result.Code := postalcode;
-
-  setLength(Result.Shapes, polygonNodes.length);
+  setLength(shapes, polygonNodes.length);
   for i := 0 to polygonNodes.length - 1 do
   begin
     select := (polygonNodes[i] as IDOMNodeSelect);
     pn := select.selectNode('.//outerBoundaryIs/LinearRing/coordinates');
-    Result.Shapes[i] := ParsePolygon(
+    shapes[i] := ParsePolygon(
       (pn as IDOMNodeEx).text);
   end;
+
+  Result := FAreaFactory.CreateArea(postalcode, shapes);
 end;
 
 function TKMLMapStreamReader.ParsePolygon(coordinates: string): TPolygon;
